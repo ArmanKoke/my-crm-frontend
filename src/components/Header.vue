@@ -1,14 +1,18 @@
 <template>
     <div id="header">
         <div id="container">
-            <h1><router-link to="/" v-text="main"></router-link></h1>
-            <b v-text="new Intl.NumberFormat(something).format(timerCount)"></b>
+            <h1><router-link :to="{ name: 'home' }" v-text="main"></router-link></h1>
+            <b v-text="under"></b>
         </div>
 
         <div id="nav">
             <ul>
-                <li><router-link :to="{ name: 'about' }">About</router-link></li>
-                <li><router-link :to="{ name: 'contact' }">Contact</router-link></li>
+                <li><router-link v-if="authenticated" :to="{ name: 'about' }">About</router-link></li>
+                <li><router-link v-if="authenticated" :to="{ name: 'contact' }">Contact</router-link></li>
+            </ul>
+            <ul>
+                <li><router-link :to="{ name: 'login' }">Sign in</router-link></li>
+                <li><button v-if="authenticated" v-on:click='logout' class="button">Sign out</button></li>
             </ul>
         </div>
     </div>
@@ -19,57 +23,33 @@
         name: 'Header',
         data () {
             return {
-                main: '',
-                inspirations: [
-                    'dum spiro, spero',
-                    'fulminare',
-                    'Acta, Non Verba',
-                    'discendo discimus',
-                    'ad astra per aspera'
-                ],
-                timerCount: 69,
-                something: '',
-                numFormats: [
-                    'zh-Hans-CN-u-nu-hanidec',
-                    'ar-EG',
-                    'fa-AF',
-                    'th-TH-u-nu-thai',
-                    'gu-Gu-u-nu-gujr',
-                ],
+                main: 'My CRM',
+                under: 'By Dud',
+                authenticated: false,
             }
         },
-        methods: {
-            loopI() {
-                let random = Math.floor(Math.random() * this.inspirations.length);
-                return this.main = this.inspirations[random];
-            },
-            loopF() {
-                let random = Math.floor(Math.random() * this.numFormats.length);
-                return this.something = this.numFormats[random];
-            },
+        created () {
+            this.setTitle();
+            this.isAuthenticated();
         },
         watch: {
-            timerCount: {
-                handler(value) {
+            '$route': 'isAuthenticated'
+        },
+        methods: {
+            setTitle () {
+                document.title = this.main
+            },
+            async isAuthenticated () {
+                this.authenticated = await this.$auth.isAuthenticated()
+            },
+            async logout () {
+                await this.$auth.logout();
+                await this.isAuthenticated();
 
-                    if (value >= 0) {
-                        setTimeout(() => {
-                            this.timerCount--;
-                        }, 1278);
-                    } else {
-                        this.loopI();
-                        this.loopF();
-                        this.timerCount = Math.floor(Math.random() * 78);
-                    }
-
-                },
-                immediate: true // This ensures the watcher is triggered upon creation
+                // Navigate back to home
+                this.$router.push({ path: '/' })
             }
         },
-        mounted() {
-            this.loopI();
-            this.loopF();
-        }
     }
 </script>
 
@@ -82,13 +62,12 @@
         display: block;
         margin: 0;
         padding: 0;
-        border-bottom-color: cornflowerblue;
     }
 
     #header {
         position: relative;
         width: 100%;
-        height: 100px;
+        height: 80px;
         left: 0;
         right: 0;
         top: 0;
@@ -100,18 +79,26 @@
         height: 100%;
         justify-content: flex-start;
         align-items: center;
-        padding: 15px 1%;
+        padding: 5px 1%;
     }
 
     #container a {
         color: #1a1a1a;
-        font-family: 'Cinzel Decorative', cursive;
+        font-family: 'Montserrat', sans-serif;
         text-decoration: none;
         transition: all 0.3s ease 0s;
     }
 
     #container a:hover {
         color: cornflowerblue;
+    }
+
+    #container b {
+        margin-left: 1%; /*todo change*/
+    }
+
+    #container b:hover {
+        color: #2b3e51;
     }
 
     #nav {
@@ -134,7 +121,7 @@
 
     #nav li {
         display: inline-block;
-        padding: 0 20px;
+        padding: 0 10px;
     }
 
     #nav li a {
@@ -148,6 +135,21 @@
 
     #nav a.router-link-exact-active {
         color: #1a1a1a;
+    }
+
+    #nav .button {
+        border: none;
+        background: cornflowerblue;
+        border-radius: 0.25em;
+        padding: 12px 20px;
+        color: #ffffff;
+        font-weight: bold;
+        float: right;
+        cursor: pointer;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        margin: 1px;
+        appearance: none;
     }
 
     @media screen and (max-width: 900px) {

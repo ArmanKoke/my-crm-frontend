@@ -3,7 +3,7 @@
         <div class="container">
             <div id="copyright">
                 <h1>
-                    <span>© Designed and maintained by Arman Koketayev {{ currentYear }}</span>
+                    <span>© Designed by Arman Koketayev {{ currentYear }}</span>
                 </h1>
             </div>
             <div id="social">
@@ -48,12 +48,12 @@
     #footer {
         position: fixed;
         float: bottom;
-        height: 100px;
+        height: 80px;
         width: 100%;
         bottom: 0;
         left: 0;
         right: 0;
-        background-color: #1a1a1a;
+        background-color: #0072b1;
         border-top-color: rgba(0,0,0,0.1);
     }
 
@@ -80,7 +80,7 @@
         height: 100%;
         justify-content: flex-end;
         align-items: center;
-        padding: 20px 1%;
+        padding: 15px 1%;
     }
 
     #social li {
@@ -95,14 +95,7 @@
     }
 
     #social li:hover {
-        -moz-border-radius: 10%;
-        -webkit-border-radius: 10%;
-        border-radius: 10%;
-        -moz-box-shadow: 0 0 5px #888;
-        -webkit-box-shadow: 0 0 5px #888;
-        box-shadow: 0 0 5px #888;
         transition: all 0.3s ease 0s;
-        background-color: whitesmoke;
     }
 
     #social li:hover #github-icon {

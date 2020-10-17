@@ -22,5 +22,9 @@ npm run build
 npm run lint
 ```
 
+## Drawbacks
+
+- Did not split inputs,buttons,textarea etc. to separate assets just to save some time
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).

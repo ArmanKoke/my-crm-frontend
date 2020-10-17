@@ -6,15 +6,16 @@
 
 
 <script>
-    // import paper from "paper"
-
     export default {
-        name: "Main",
-        data() {
+        name: 'Main',
+        data () {
             return {
-                //
+
             }
         },
+        methods: {
+
+        }
     }
 </script>
 
