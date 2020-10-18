@@ -7,18 +7,21 @@
 
         <div id="nav">
             <ul>
-                <li><router-link v-if="authenticated" :to="{ name: 'about' }">About</router-link></li>
-                <li><router-link v-if="authenticated" :to="{ name: 'contact' }">Contact</router-link></li>
+                <li><router-link v-if="isLogged" :to="{ name: 'about' }">About</router-link></li>
+                <li><router-link v-if="isLogged" :to="{ name: 'contact' }">Contact</router-link></li>
+                <li><router-link v-if="isLogged" :to="{ name: 'profile' }">Profile</router-link></li>
             </ul>
             <ul>
-                <li><router-link :to="{ name: 'login' }">Sign in</router-link></li>
-                <li><button v-if="authenticated" v-on:click='logout' class="button">Sign out</button></li>
+                <li><router-link v-if="!isLogged" :to="{ name: 'login' }">Sign in</router-link></li>
+                <li><button v-if="isLogged" v-on:click='logout' class="button">Sign out</button></li>
             </ul>
         </div>
     </div>
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
+
     export default {
         name: 'Header',
         data () {
@@ -28,26 +31,23 @@
                 authenticated: false,
             }
         },
+        computed: {
+            ...mapGetters([
+                'isLogged'
+            ])
+        },
         created () {
             this.setTitle();
-            this.isAuthenticated();
-        },
-        watch: {
-            '$route': 'isAuthenticated'
         },
         methods: {
             setTitle () {
                 document.title = this.main
             },
-            async isAuthenticated () {
-                this.authenticated = await this.$auth.isAuthenticated()
-            },
-            async logout () {
-                await this.$auth.logout();
-                await this.isAuthenticated();
+            logout () {
+                this.$store.dispatch('logout');
 
                 // Navigate back to home
-                this.$router.push({ path: '/' })
+                this.$router.push({ name: 'home' })
             }
         },
     }

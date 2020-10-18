@@ -3,6 +3,17 @@ import Router from 'vue-router'
 
 Vue.use(Router);
 
+// Router.beforeEach((to, from, next) => {
+//     const loggedIn = localStorage.getItem('user');
+//     console.log(loggedIn)
+//
+//     if (to.matched.some(record => record.meta.auth) && !loggedIn) {
+//         next('login');
+//         return
+//     }
+//     next()
+// });
+
 export default new Router({
     mode: 'history',
     routes: [
@@ -15,6 +26,11 @@ export default new Router({
             path: '/login',
             name: 'login',
             component: () => import(/* webpackChunkName: "main" */ "./components/pages/Login.vue")
+        },
+        {
+            path: '/profile',
+            name: 'profile',
+            component: () => import(/* webpackChunkName: "main" */ "./components/pages/Profile.vue")
         },
         {
             path: '/register',

@@ -1,6 +1,7 @@
 <template>
     <div id="contact">
-        <form class="vue-form" @submit.prevent="submit">
+        <form class="vue-form" @submit.prevent="">
+            <input type="hidden" name="_token" :value="token">
             <div class="error-message">
                 <p v-show="!email.valid">Please enter a valid email address.</p>
             </div>
@@ -46,16 +47,28 @@
                     placeholder: "Password",
                     maxlength: 100
                 },
-                submitted: false
-
+            }
+        },
+        computed: {
+            token() {
+                // let token = document.head.querySelector('meta[name="csrf-token"]');
+                // return token.content
+                return 's'
             }
         },
         methods: {
             login () {
-                this.$auth.loginRedirect('/')
-            },
-            submit() {
-                this.submitted = true;
+                this.$store
+                    .dispatch('login', {
+                        email: this.email.value,
+                        password: this.password.value
+                    })
+                    .then(() => {
+                        this.$router.push({ name: 'home' })
+                    })
+                    .catch(err => {
+                        console.log(err) //show some msg
+                    })
             },
             validate(type, value) {
                 if (type === "email") {
@@ -67,7 +80,6 @@
             },
         },
         watch: {
-            // watching nested property
             "email.value": function(value) {
                 this.validate("email", value);
             }
