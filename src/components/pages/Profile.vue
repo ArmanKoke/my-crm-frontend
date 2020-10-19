@@ -9,9 +9,6 @@
 </template>
 
 <script>
-
-// import axios from "../../axios";
-
 import axios from "axios";
 
 export default {
@@ -25,9 +22,6 @@ export default {
     },
     methods: {
         getProfileData() {
-            // let credentials = {
-            //
-            // };
             axios.get('user/data')
                 .then(({ data }) => {
                     this.profile = data.data

@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 Vue.use(Router);
 
-// Router.beforeEach((to, from, next) => {
+// Router.beforeEach((to, from, next) => { //todo implement auth check on every page change
 //     const loggedIn = localStorage.getItem('user');
 //     console.log(loggedIn)
 //
@@ -53,11 +53,6 @@ export default new Router({
             name: 'register',
             component: () => import(/* webpackChunkName: "main" */ "./components/pages/Register.vue")
         },
-        // {
-        //     path: '/about',
-        //     name: 'about',
-        //     component: () => import(/* webpackChunkName: "about" */ "./components/pages/About.vue")
-        // },
         {
             path: '/contact',
             name: 'contact',
