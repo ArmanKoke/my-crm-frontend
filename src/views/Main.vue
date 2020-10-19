@@ -1,6 +1,6 @@
 <template>
     <div id="main">
-
+        <!--add some dashboard or smh-->
     </div>
 </template>
 

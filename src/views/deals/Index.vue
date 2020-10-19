@@ -11,10 +11,10 @@
 
 <script>
     import axios from "axios";
-    import Deal from "./Deal";
+    import Deal from "../../components/Deal";
 
     export default {
-        name: 'Deals',
+        name: 'DealsIndex',
         components: {
             Deal,
         },

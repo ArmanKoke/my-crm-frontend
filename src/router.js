@@ -20,43 +20,43 @@ export default new Router({
         {
             path: '/',
             name: 'home',
-            component: () => import(/* webpackChunkName: "main" */ "./components/pages/Main.vue")
+            component: () => import(/* webpackChunkName: "main" */ "./views/Main.vue")
         },
         {
             path: '/login',
             name: 'login',
-            component: () => import(/* webpackChunkName: "main" */ "./components/pages/Login.vue")
+            component: () => import(/* webpackChunkName: "main" */ "./views/auth/Login.vue")
         },
         {
             path: '/profile',
             name: 'profile',
-            component: () => import(/* webpackChunkName: "main" */ "./components/pages/Profile.vue")
+            component: () => import(/* webpackChunkName: "main" */ "./views/users/Profile.vue")
         },
         {
             path: '/deals',
             name: 'deals',
-            component: () => import(/* webpackChunkName: "main" */ "./components/pages/Deals.vue")
+            component: () => import(/* webpackChunkName: "main" */ "./views/deals/Index.vue")
         },
         {
             path: '/deals/create',
             name: 'deals_create',
-            component: () => import(/* webpackChunkName: "main" */ "./components/pages/DealsCreate.vue")
+            component: () => import(/* webpackChunkName: "main" */ "./views/deals/Create.vue")
         },
         {
             path: '/deals/edit',
             name: 'deals_edit',
             props: true,
-            component: () => import(/* webpackChunkName: "main" */ "./components/pages/DealsUpdate.vue")
+            component: () => import(/* webpackChunkName: "main" */ "./views/deals/Update.vue")
         },
         {
             path: '/register',
             name: 'register',
-            component: () => import(/* webpackChunkName: "main" */ "./components/pages/Register.vue")
+            component: () => import(/* webpackChunkName: "main" */ "./views/auth/Register.vue")
         },
         {
             path: '/contact',
             name: 'contact',
-            component: () => import(/* webpackChunkName: "contact" */ "./components/pages/Contact.vue")
+            component: () => import(/* webpackChunkName: "contact" */ "./views/Contact.vue")
         },
     ]
 })

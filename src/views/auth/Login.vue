@@ -3,47 +3,51 @@
         <form class="vue-form" @submit.prevent="">
             <input type="hidden" name="_token" :value="token">
             <div class="error-message">
-
+                <p v-show="!email.valid">Please enter a valid email address.</p>
             </div>
 
             <div>
-                <label class="label" for="company">Company name</label>
-                <input type="text" name="company" id="company" required=""
-                       v-model="company">
+                <label class="label" for="email">Email</label>
+                <input type="email" name="email" id="email" required="" :placeholder="email.placeholder"
+                       :class="{ email , error: !email.valid }" :maxlength="email.maxlength"
+                       v-model="email.value">
             </div>
             <div>
-                <label class="label" for="description">Description</label>
-                <input type="text" name="description" id="description" required=""
-                       v-model="description">
+                <label class="label" for="password">Password</label>
+                <input type="password" name="password" id="password" required=""
+                       :maxlength="password.maxlength" :placeholder="password.placeholder"
+                       v-model="password.value">
             </div>
             <div>
-                <label class="label" for="notes">Notes</label>
-                <input type="text" name="notes" id="notes" required=""
-                       v-model="notes">
+                <p class="">Or sign up if you are not registered</p>
             </div>
             <div>
-                <label class="label" for="status">Status</label>
-                <input type="number" name="status" id="status" required=""
-                       v-model="status">
-            </div>
-            <div>
-                <input type="submit" v-on:click="create" value="Create">
+                <input type="submit" v-on:click="login" value="Login">
+                <router-link class="button router" :to="{ name: 'register' }">Sign up</router-link>
             </div>
         </form>
     </div>
 </template>
 
 <script>
-
-    import axios from "axios";
+    // eslint-disable-next-line no-useless-escape
+    let emailRegExp = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
     export default {
+        name: 'AuthLogin',
         data() {
             return {
-                company: '',
-                description: '',
-                notes: '',
-                status: 0,
+                email: {
+                    value: "",
+                    placeholder: "john@doe.com",
+                    valid: true,
+                    maxlength: 100
+                },
+                password: {
+                    value: "",
+                    placeholder: "Password",
+                    maxlength: 100
+                },
             }
         },
         computed: {
@@ -54,23 +58,32 @@
             }
         },
         methods: {
-            create () {
-                axios.post('/user/deals', {
-                        company_name: this.company,
-                        description: this.description,
-                        notes: this.notes,
-                        status_id: this.status,
+            login () {
+                this.$store
+                    .dispatch('login', {
+                        email: this.email.value,
+                        password: this.password.value
                     })
                     .then(() => {
-                        this.$router.push({ name: 'deals' })
+                        this.$router.push({ name: 'home' })
                     })
                     .catch(err => {
                         console.log(err) //show some msg
                     })
             },
+            validate(type, value) {
+                if (type === "email") {
+                    this.email.valid = !!this.isEmail(value);
+                }
+            },
+            isEmail(value) {
+                return emailRegExp.test(value);
+            },
         },
         watch: {
-
+            "email.value": function(value) {
+                this.validate("email", value);
+            }
         },
     }
 </script>
@@ -107,7 +120,7 @@
         color: #2b3e51;
     }
     .vue-form input[type="text"],
-    .vue-form input[type="number"],
+    .vue-form input[type="password"],
     .vue-form input[type="email"],
     .vue-form textarea {
         display: block;
@@ -116,7 +129,7 @@
         box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.3);
     }
     .vue-form input[type="text"],
-    .vue-form input[type="number"],
+    .vue-form input[type="password"],
     .vue-form input[type="email"],
     .vue-form textarea {
         padding: 12px;
@@ -126,7 +139,7 @@
         box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.08);
     }
     .vue-form input[type="text"]:focus,
-    .vue-form input[type="number"]:focus,
+    .vue-form input[type="password"]:focus,
     .vue-form input[type="email"]:focus,
     .vue-form textarea:focus {
         outline: none;

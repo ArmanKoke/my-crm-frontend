@@ -12,6 +12,7 @@
 import axios from "axios";
 
 export default {
+    name: 'UsersProfile',
     data () {
         return {
             profile: []

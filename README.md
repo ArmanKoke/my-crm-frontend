@@ -29,7 +29,8 @@ npm run lint
 ## Drawbacks
 
 - Did not split inputs,buttons,textarea etc. to separate assets just to save some time
-- Password is not secured at all
+- Password need to be salted
+- Lacks reactivity in some places
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
