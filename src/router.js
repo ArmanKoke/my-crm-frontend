@@ -45,6 +45,7 @@ export default new Router({
         {
             path: '/deals/edit',
             name: 'deals_edit',
+            props: true,
             component: () => import(/* webpackChunkName: "main" */ "./components/pages/DealsUpdate.vue")
         },
         {

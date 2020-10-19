@@ -27,7 +27,7 @@
                        v-model="status">
             </div>
             <div>
-                <input type="submit" v-on:click="update" value="Create">
+                <input type="submit" v-on:click="update" value="Update">
             </div>
         </form>
     </div>
@@ -38,6 +38,7 @@
     import axios from "axios";
 
     export default {
+        name: 'DealsUpdate',
         props: {
             deal: Object
         },

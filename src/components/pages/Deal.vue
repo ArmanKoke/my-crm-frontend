@@ -1,5 +1,5 @@
 <template>
-<!--    <div id="deal">-->
+    <div id="deal">
         <div class = row>
             <div class= 'card'>
                 <div class = 'card-header'>
@@ -10,7 +10,7 @@
                     <p class = 'card-content-text'>{{message}}</p>
                 </div>
                 <button id="delBtn" v-on:click='deleteDeal' class="button">Delete</button>
-                <button id="updBtn" class="button"><router-link :to="{ name: 'deals_update' }">Edit</router-link></button>
+                <button id="updBtn" class="button"><router-link :to="{ name: 'deals_edit', params: {deal: this.data} }">Edit</router-link></button>
                 <div class = 'card-footer'>
                     <i @mouseover = 'animateRight'
                        @mouseleave = 'animateLeft'
@@ -20,7 +20,7 @@
                 </div>
             </div>
         </div>
-<!--    </div>-->
+    </div>
 </template>
 
 <script>
