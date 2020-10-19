@@ -7,7 +7,7 @@
 
         <div id="nav">
             <ul>
-                <li><router-link v-if="isLogged" :to="{ name: 'about' }">About</router-link></li>
+                <li><router-link v-if="isLogged" :to="{ name: 'deals' }">Deals</router-link></li>
                 <li><router-link v-if="isLogged" :to="{ name: 'contact' }">Contact</router-link></li>
                 <li><router-link v-if="isLogged" :to="{ name: 'profile' }">Profile</router-link></li>
             </ul>

@@ -33,6 +33,21 @@ export default new Router({
             component: () => import(/* webpackChunkName: "main" */ "./components/pages/Profile.vue")
         },
         {
+            path: '/deals',
+            name: 'deals',
+            component: () => import(/* webpackChunkName: "main" */ "./components/pages/Deals.vue")
+        },
+        {
+            path: '/deals/create',
+            name: 'deals_create',
+            component: () => import(/* webpackChunkName: "main" */ "./components/pages/DealsCreate.vue")
+        },
+        {
+            path: '/deals/edit',
+            name: 'deals_edit',
+            component: () => import(/* webpackChunkName: "main" */ "./components/pages/DealsUpdate.vue")
+        },
+        {
             path: '/register',
             name: 'register',
             component: () => import(/* webpackChunkName: "main" */ "./components/pages/Register.vue")
