@@ -4,10 +4,11 @@
             <div class= 'card'>
                 <div class = 'card-header'>
                     <h1 class = 'card-header-title'>{{title}}</h1>
-                    <i v-bind:class = 'icon'>{{icon}}</i>
+                    <div class="status" :class="status.slug">{{status.name}}</div>
                 </div>
                 <div class = 'card-content'>
                     <p class = 'card-content-text'>{{message}}</p>
+                    <h3>Notes:</h3><p class = 'card-content-text'>{{notes}}</p>
                 </div>
                 <button id="delBtn" v-on:click='deleteDeal' class="button">Delete</button>
                 <button id="updBtn" class="button"><router-link :to="{ name: 'deals_edit', params: {deal: this.data} }">Edit</router-link></button>
@@ -15,7 +16,6 @@
                     <i @mouseover = 'animateRight'
                        @mouseleave = 'animateLeft'
                        v-on:click = 'click'
-                       class="fas fa-arrow-right fa-2x"
                     > >>> </i>
                 </div>
             </div>
@@ -33,7 +33,11 @@
                 clicked:false,
                 title: this.data.company_name,
                 message: this.data.description,
-                icon: this.data.id,
+                notes: this.data.notes,
+                status: {
+                    name: this.data.status.name,
+                    slug: this.data.status.slug,
+                },
             }
         },
         props: {
@@ -96,6 +100,19 @@
 </script>
 
 <style scoped>
+    div.status {
+        background: #34495e;
+        margin: 1px;
+        padding: 5px;
+    }
+
+    div.status.open {
+        background: mediumseagreen;
+    }
+    div.status.closed {
+        background: dimgray;
+    }
+
     button a {
         text-decoration: none;
         background: #ecf0f1;
@@ -125,7 +142,7 @@
     div.card {
         font-family: "Open Sans", sans-serif;
         width: 330px;
-        height: 270px;
+        height: 330px;
         margin-left: 20px;
         margin-right: 20px;
         display: flex;
@@ -167,7 +184,7 @@
         justify-content: space-between;
         flex: 1 0 auto;
     }
-    div.card div.card-header i {
+    div.card div.status {
         color: white;
         padding-right: 25px;
     }
